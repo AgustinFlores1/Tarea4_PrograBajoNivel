@@ -47,7 +47,16 @@ informacion = ax.text(
 )
 
 pasos_de_tiempo = pedir_numero("\nIngrese la cantidad de dias totales a simular\n> ", tipo=int)
-pasos_por_frame = 5
+pasos_por_frame = pedir_numero("\nIngrese los intervalos de tiempo en que se actualizara el grafico\n(Se actualiza cada 5 dias, 10 dias, etc...) > ", tipo=int)
+
+if pasos_por_frame > pasos_de_tiempo:
+    print("\n¡ATENCION!: Los intervalos de tiempo no pueden ser mayores a la cantidad de dias totales")
+    pasos_por_frame = pedir_numero("\nIngrese los intervalos de tiempo en que se actualizara el grafico\n(Se actualiza cada 5 dias, 10 dias, etc...) > ", tipo=int)
+
+    if pasos_por_frame > pasos_de_tiempo:
+        print("\n¡ERROR!: se ignoro la advertencia anterior, usando valor por defecto de 1...")
+        pasos_por_frame = 1
+
 frames_totales = pasos_de_tiempo // pasos_por_frame
 
 def actualizar(frame):
@@ -66,7 +75,7 @@ def actualizar(frame):
     planeta_gf.set_offsets(coor_planeta)
     asteroides_gf.set_offsets(coor_asteroides)
 
-    informacion.set_text(f"Días simulados: {frame * pasos_por_frame + 5} / {pasos_de_tiempo}\nAsteroides vivos: {len(sistema_actualizado) - 2}")
+    informacion.set_text(f"Días simulados: {frame * pasos_por_frame + pasos_por_frame} / {pasos_de_tiempo}\nAsteroides vivos: {len(sistema_actualizado) - 2}")
     
     return estrella_gf, planeta_gf, asteroides_gf, informacion
 
