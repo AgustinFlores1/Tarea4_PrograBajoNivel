@@ -9,11 +9,11 @@ $(exe): main.o $(lib)
 $(lib): cuerpo.o sim.o
 	$(CC) -shared cuerpo.o sim.o -o $(lib)
 
-main.o: main.cpp 
-	$(CC) main.cpp -c -o main.o
+main.o: main.cpp cuerpo.h sim.h variable2d.h
+	$(CC) $(flags) main.cpp -c -o main.o
 
-%.o: %.cpp
+%.o: %.cpp %.h variable2d.h
 	$(CC) $(flags) -fPIC -c $< -o $@
 
 clean:
-	rm -rf $(exe) $(lib) %.o
+	rm -rf $(exe) $(lib) *.o
