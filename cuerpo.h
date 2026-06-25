@@ -1,9 +1,7 @@
 #pragma once
-#include<string>
 
 class cuerpo {
 private:
-    std::string tipo;
     double radio;
 public:
     double masa;
@@ -11,7 +9,7 @@ public:
     double vx, vy;
 
     cuerpo();
-    cuerpo(double x_inicial, double y_inicial, double masa, std::string tipo);
+    cuerpo(double xi, double yi, double mass, double radius);
     double getRadius();
     ~cuerpo();
 };
